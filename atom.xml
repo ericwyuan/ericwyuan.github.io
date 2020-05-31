@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ericwyuan.com/"/>
-  <updated>2020-03-22T13:03:41.310Z</updated>
+  <updated>2020-05-31T01:21:47.194Z</updated>
   <id>http://ericwyuan.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android 热修复整理</title>
+    <link href="http://ericwyuan.com/Android-%E7%83%AD%E4%BF%AE%E5%A4%8D%E6%95%B4%E7%90%86.html"/>
+    <id>http://ericwyuan.com/Android-热修复整理.html</id>
+    <published>2020-05-31T01:12:37.000Z</published>
+    <updated>2020-05-31T01:21:47.194Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Java数据结构-（一）</title>
