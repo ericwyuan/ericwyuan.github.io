@@ -378,6 +378,615 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ericwyuan.com/Android-MVP-MVVM框架梳理-（二）.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eric">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eric's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/Android-MVP-MVVM框架梳理-（二）.html" class="post-title-link" itemprop="url">Android MVP MVVM框架梳理 （二）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-03-13 11:03:52" itemprop="dateCreated datePublished" datetime="2018-03-13T11:03:52+08:00">2018-03-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-15 14:14:56" itemprop="dateModified" datetime="2020-03-15T14:14:56+08:00">2020-03-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发/" itemprop="url" rel="index"><span itemprop="name">开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/Android-MVP-MVVM框架梳理-（二）.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Android-MVP-MVVM框架梳理-（二）.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Android MVP框架梳理 梳理下Google推荐的MVP MVVM Demo<br> <a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="noopener">源码Git地址</a></p>
+<ul>
+<li><strong>todo‑mvp</strong></li>
+<li><strong>todo‑mvp‑clean</strong></li>
+<li><strong>todo‑mvp‑dagger</strong></li>
+<li><strong>todo‑mvp‑rxjava</strong></li>
+<li><strong>todo‑mvvm‑databinding</strong></li>
+<li><strong>todo‑mvvm‑live</strong></li>
+</ul>
+<hr>
+<h2 id="todo‑mvp‑clean"><a href="#todo‑mvp‑clean" class="headerlink" title="todo‑mvp‑clean"></a>todo‑mvp‑clean</h2><h4 id="todo‑mvp‑clean源码Git地址"><a href="#todo‑mvp‑clean源码Git地址" class="headerlink" title="todo‑mvp‑clean源码Git地址"></a><a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp-clean/" target="_blank" rel="noopener">todo‑mvp‑clean源码Git地址</a></h4><h3 id="todo‑mvp‑clean与todo‑mvp对比"><a href="#todo‑mvp‑clean与todo‑mvp对比" class="headerlink" title="todo‑mvp‑clean与todo‑mvp对比"></a>todo‑mvp‑clean与todo‑mvp对比</h3><ol>
+<li>todo‑mvp‑clean在Presenter和TasksDataSource 之间加入了Domail Layout层 该层中可以减少Presenter的代码 使逻辑更清晰</li>
+<li>todo‑mvp‑clean加入了UseCase和UseCaseHandler的机制 在非UI线程进行逻辑操作 在UI线程进行界面刷新</li>
+</ol>
+<h3 id="todo‑mvp‑clean结构图"><a href="#todo‑mvp‑clean结构图" class="headerlink" title="todo‑mvp‑clean结构图"></a>todo‑mvp‑clean结构图</h3><p><img src="http://img.blog.csdn.net/20180313104323575?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2hhbnhpeXVhbndlaQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h3 id="todo‑mvp‑clean逻辑梳理"><a href="#todo‑mvp‑clean逻辑梳理" class="headerlink" title="todo‑mvp‑clean逻辑梳理"></a>todo‑mvp‑clean逻辑梳理</h3><p><strong>todo‑mvp‑clean与todo‑mvp只是在Presenter和TasksDataSource之间逻辑处理有了变化 只梳理这部分的流程</strong> </p>
+<h4 id><a href="#" class="headerlink" title=" "></a> </h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Presenter层调用UseCaseHandler去执行逻辑处理</span></span><br><span class="line"><span class="comment"> * 处理完回调上层结果 通知界面刷新</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> title</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> description</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">createTask</span><span class="params">(String title, String description)</span> </span>&#123;</span><br><span class="line">    Task newTask = <span class="keyword">new</span> Task(title, description);</span><br><span class="line">    <span class="keyword">if</span> (newTask.isEmpty()) &#123;</span><br><span class="line">        mAddTaskView.showEmptyTaskError();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        mUseCaseHandler.execute(mSaveTask, <span class="keyword">new</span> SaveTask.RequestValues(newTask),</span><br><span class="line">                <span class="keyword">new</span> UseCase.UseCaseCallback&lt;SaveTask.ResponseValue&gt;() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(SaveTask.ResponseValue response)</span> </span>&#123;</span><br><span class="line">                        mAddTaskView.showTasksList();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        showSaveError();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 每个Presenter对应一个UseCaseHandler</span></span><br><span class="line"><span class="comment"> * UseCaseHandler中进行具体的逻辑处理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> useCase</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> values</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> callback</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;T&gt;</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &lt;R&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> &lt;T extends UseCase.RequestValues, R extends UseCase.ResponseValue&gt; <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="keyword">final</span> UseCase&lt;T, R&gt; useCase, T values, UseCase.UseCaseCallback&lt;R&gt; callback)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//设置请求过程中需要的参数</span></span><br><span class="line">    useCase.setRequestValues(values);</span><br><span class="line">    <span class="comment">//设置请求完成后的回调</span></span><br><span class="line">    useCase.setUseCaseCallback(<span class="keyword">new</span> UiCallbackWrapper(callback, <span class="keyword">this</span>));</span><br><span class="line"></span><br><span class="line">    EspressoIdlingResource.increment();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//逻辑处理放在非UI线程</span></span><br><span class="line">    mUseCaseScheduler.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            useCase.run();</span><br><span class="line">            <span class="keyword">if</span> (!EspressoIdlingResource.getIdlingResource().isIdleNow()) &#123;</span><br><span class="line">                EspressoIdlingResource.decrement();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 具体的业务处理</span></span><br><span class="line"><span class="comment"> * GetTasks.java</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> values 上层传来的参数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">executeUseCase</span><span class="params">(<span class="keyword">final</span> RequestValues values)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (values.isForceUpdate()) &#123;</span><br><span class="line">        mTasksRepository.refreshTasks();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//此逻辑在非UI线程执行</span></span><br><span class="line">    <span class="comment">//并对数据仓储设置回调</span></span><br><span class="line">    mTasksRepository.getTasks(<span class="keyword">new</span> TasksDataSource.LoadTasksCallback() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTasksLoaded</span><span class="params">(List&lt;Task&gt; tasks)</span> </span>&#123;</span><br><span class="line">            TasksFilterType currentFiltering = values.getCurrentFiltering();</span><br><span class="line">            TaskFilter taskFilter = mFilterFactory.create(currentFiltering);</span><br><span class="line"></span><br><span class="line">            List&lt;Task&gt; tasksFiltered = taskFilter.filter(tasks);</span><br><span class="line">            ResponseValue responseValue = <span class="keyword">new</span> ResponseValue(tasksFiltered);</span><br><span class="line">            <span class="comment">//处理结果回调上层进行处理( mAddTaskView.showTasksList();)</span></span><br><span class="line">            getUseCaseCallback().onSuccess(responseValue);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">////处理结果回调上层进行处理( showSaveError();)</span></span><br><span class="line">            getUseCaseCallback().onError();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ericwyuan.com/Android-MVP-MVVM框架梳理-（一）.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eric">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eric's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/Android-MVP-MVVM框架梳理-（一）.html" class="post-title-link" itemprop="url">Android MVP MVVM框架梳理 （一）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-12-29 16:16:55" itemprop="dateCreated datePublished" datetime="2017-12-29T16:16:55+08:00">2017-12-29</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-15 14:14:56" itemprop="dateModified" datetime="2020-03-15T14:14:56+08:00">2020-03-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发/" itemprop="url" rel="index"><span itemprop="name">开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/Android-MVP-MVVM框架梳理-（一）.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Android-MVP-MVVM框架梳理-（一）.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Android MVP框架梳理 梳理下Google推荐的MVP MVVM Demo<br> <a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="noopener">源码Git地址</a></p>
+<ul>
+<li><strong>todo‑mvp</strong></li>
+<li><strong>todo‑mvp‑clean</strong></li>
+<li><strong>todo‑mvp‑dagger</strong></li>
+<li><strong>todo‑mvp‑rxjava</strong></li>
+<li><strong>todo‑mvvm‑databinding</strong></li>
+<li><strong>todo‑mvvm‑live</strong></li>
+</ul>
+<hr>
+<h2 id="todo‑mvp"><a href="#todo‑mvp" class="headerlink" title="todo‑mvp"></a>todo‑mvp</h2><h4 id="todo‑mvp源码Git地址"><a href="#todo‑mvp源码Git地址" class="headerlink" title="todo‑mvp源码Git地址"></a><a href="https://github.com/googlesamples/android-architecture/tree/todo-mvp/" target="_blank" rel="noopener">todo‑mvp源码Git地址</a></h4><p>这个项目中还用到了guava room等框架包 会逐渐梳理出来~</p>
+<h3 id="1-MVP简介"><a href="#1-MVP简介" class="headerlink" title="1.MVP简介"></a>1.MVP简介</h3><p>MVC是基于MVC模式框架上发展而来的，在Android中代码框架中 大家都会使用MVC模式 MVC在代码中的应用如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Modle:对应Bean对象和数据</span><br><span class="line">View:对应XML布局</span><br><span class="line">Control:对应Activity</span><br></pre></td></tr></table></figure>
+
+<p>但是Activity中经常需要处理View的好多逻辑业务，导致Activity业务很臃肿 复杂。MVP 模式可以很好的解决这种问题 使代码结构更清晰 业务更明确 更易于理解阅读<br>MVP框架职责如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Modle:依然对应Bean对象和数据</span><br><span class="line">View:对应Activity Fragment 只做View的展示 </span><br><span class="line">Presenter:支持人角色 负责业务逻辑处理</span><br></pre></td></tr></table></figure>
+
+
+<p>项目包结构如下：<br><img src="http://img.blog.csdn.net/20171229153630665?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemljaHVhbnpodQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>项目类结构如下：<br><img src="http://img.blog.csdn.net/20171229154918725?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemljaHVhbnpodQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>除了util工具类 其余的包都是按照业务逻辑在自己的包中，每个包都符合MVP模式</p>
+<h3 id="2-包中功能解释"><a href="#2-包中功能解释" class="headerlink" title="2.包中功能解释"></a>2.包中功能解释</h3><h4 id="2-1data包"><a href="#2-1data包" class="headerlink" title="2.1data包"></a>2.1data包</h4><p><img src="http://img.blog.csdn.net/20171229155118551?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemljaHVhbnpodQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>1.定义了bean对象 Task<br>2.定义了数据源的接口 TasksDataSource<br>3.实现了数据仓库接口:本地数据仓库,远程数据仓库<br>4.实现综合数据仓库TasksRepository 里边有本地和远程的数据仓库的对象 可以实现数据源的不同存储,缓存的功能</p>
+<h4 id="2-2-addedittask包"><a href="#2-2-addedittask包" class="headerlink" title="2.2 addedittask包"></a>2.2 addedittask包</h4><p>addedittask,statistics,taskdetail,tasks里边有事一个MVP模式 只梳理下addedittask中的逻辑 其他包是类似的</p>
+<p><img src="http://img.blog.csdn.net/20171229155916260?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvemljaHVhbnpodQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AddEditTaskActivity:初始化View层和Presenter层 并实现Presenter和View的绑定</span><br><span class="line">AddEditTaskContract:定义了View和Presenter的接口</span><br><span class="line">AddEditTaskFragment:View层实现了AddEditTaskContract中的View接口</span><br><span class="line">AddEditTaskPresenter :Presenter层 实现了AddEditTaskContract的Presenter接口</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-1-AddEditTaskContract-java"><a href="#2-2-1-AddEditTaskContract-java" class="headerlink" title="2.2.1  AddEditTaskContract.java"></a>2.2.1  AddEditTaskContract.java</h5><p>定义了View和Presenter的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AddEditTaskContract</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">View</span> <span class="keyword">extends</span> <span class="title">BaseView</span>&lt;<span class="title">Presenter</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showEmptyTaskError</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTasksList</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setDescription</span><span class="params">(String description)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">isActive</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Presenter</span> <span class="keyword">extends</span> <span class="title">BasePresenter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(String title, String description)</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">populateTask</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">isDataMissing</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-2-AddEditTaskFragment-java"><a href="#2-2-2-AddEditTaskFragment-java" class="headerlink" title="2.2.2  AddEditTaskFragment.java"></a>2.2.2  AddEditTaskFragment.java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现View层的接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddEditTaskFragment</span> <span class="keyword">extends</span> <span class="title">Fragment</span> <span class="keyword">implements</span> <span class="title">AddEditTaskContract</span>.<span class="title">View</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//点击事件交给Presenter层去处理</span></span><br><span class="line">    fab.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">            mPresenter.saveTask(mTitle.getText().toString(), mDescription.getText().toString());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Presenter层处理完逻辑 回调之View层展现</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showEmptyTaskError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Snackbar.make(mTitle, getString(R.string.empty_task_message), Snackbar.LENGTH_LONG).show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showTasksList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        getActivity().setResult(Activity.RESULT_OK);</span><br><span class="line">        getActivity().finish();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-3-AddEditTaskPresenter-java"><a href="#2-2-3-AddEditTaskPresenter-java" class="headerlink" title="2.2.3  AddEditTaskPresenter.java"></a>2.2.3  AddEditTaskPresenter.java</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实现Presenter的接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddEditTaskPresenter</span> <span class="keyword">implements</span> <span class="title">AddEditTaskContract</span>.<span class="title">Presenter</span>,</span></span><br><span class="line"><span class="class">        <span class="title">TasksDataSource</span>.<span class="title">GetTaskCallback</span> </span>&#123;</span><br><span class="line">    <span class="comment">//处理View层发送来的请求</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(String title, String description)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isNewTask()) &#123;</span><br><span class="line">            createTask(title, description);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            updateTask(title, description);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateTask</span><span class="params">(String title, String description)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isNewTask()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"updateTask() was called but task is new."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//交于综合数据仓库去处理数据</span></span><br><span class="line">        mTasksRepository.saveTask(<span class="keyword">new</span> Task(title, description, mTaskId));</span><br><span class="line">        <span class="comment">//处理完后回调View层展示处理结果</span></span><br><span class="line">        mAddTaskView.showTasksList(); <span class="comment">// After an edit, go back to the list.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-4-AddEditTaskActivity-java"><a href="#2-2-4-AddEditTaskActivity-java" class="headerlink" title="2.2.4  AddEditTaskActivity.java"></a>2.2.4  AddEditTaskActivity.java</h5><p>初始化View层和Presenter层 并实现Presenter和View的绑定</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化View层</span></span><br><span class="line"><span class="keyword">if</span> (addEditTaskFragment == <span class="keyword">null</span>) &#123;</span><br><span class="line">    addEditTaskFragment = AddEditTaskFragment.newInstance();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> shouldLoadDataFromRepo = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Prevent the presenter from loading data from the repository if this is a config change.</span></span><br><span class="line"><span class="keyword">if</span> (savedInstanceState != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">// Data might not have loaded when the config change happen, so we saved the state.</span></span><br><span class="line">    shouldLoadDataFromRepo = savedInstanceState.getBoolean(SHOULD_LOAD_DATA_FROM_REPO_KEY);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化View层和Presenter层 并实现Presenter和View的绑定</span></span><br><span class="line">mAddEditTaskPresenter = <span class="keyword">new</span> AddEditTaskPresenter(</span><br><span class="line">    taskId,</span><br><span class="line">    Injection.provideTasksRepository(getApplicationContext()),</span><br><span class="line">    addEditTaskFragment,</span><br><span class="line">    shouldLoadDataFromRepo);</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-5-TasksDataSource-数据处理相关的"><a href="#2-2-5-TasksDataSource-数据处理相关的" class="headerlink" title="2.2.5  TasksDataSource 数据处理相关的"></a>2.2.5  TasksDataSource 数据处理相关的</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateTask</span><span class="params">(String title, String description)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (isNewTask()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"updateTask() was called but task is new."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//交于综合数据仓库去处理数据</span></span><br><span class="line">    mTasksRepository.saveTask(<span class="keyword">new</span> Task(title, description, mTaskId));</span><br><span class="line">    <span class="comment">//处理完后回调View层展示处理结果</span></span><br><span class="line">    mAddTaskView.showTasksList(); <span class="comment">// After an edit, go back to the list.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 综合数据仓储处理</span></span><br><span class="line"><span class="comment"> * TasksRepository.java</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> task</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(@NonNull Task task)</span> </span>&#123;</span><br><span class="line">    checkNotNull(task);</span><br><span class="line">    <span class="comment">//远程数据仓储处理</span></span><br><span class="line">    mTasksRemoteDataSource.saveTask(task);</span><br><span class="line">    <span class="comment">//本地数据仓储处理</span></span><br><span class="line">    mTasksLocalDataSource.saveTask(task);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加入本地缓存</span></span><br><span class="line">    <span class="keyword">if</span> (mCachedTasks == <span class="keyword">null</span>) &#123;</span><br><span class="line">        mCachedTasks = <span class="keyword">new</span> LinkedHashMap&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    mCachedTasks.put(task.getId(), task);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本地数据存储</span></span><br><span class="line"><span class="comment"> * 因为操作数据库需要放在非UI线程处理</span></span><br><span class="line"><span class="comment"> * TasksLocalDataSource.java</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> task</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(@NonNull <span class="keyword">final</span> Task task)</span> </span>&#123;</span><br><span class="line">    checkNotNull(task);</span><br><span class="line">    <span class="comment">//启动线程 在非UI进程进行数据库操作</span></span><br><span class="line">    Runnable saveRunnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            mTasksDao.insertTask(task);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    mAppExecutors.diskIO().execute(saveRunnable);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 远程数据操作处理</span></span><br><span class="line"><span class="comment"> * 此处代码为模拟的</span></span><br><span class="line"><span class="comment"> * TasksRemoteDataSource.java</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> task</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(@NonNull Task task)</span> </span>&#123;</span><br><span class="line">    TASKS_SERVICE_DATA.put(task.getId(), task);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://ericwyuan.com/格式化安卓字符串资源.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Eric">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eric's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/格式化安卓字符串资源.html" class="post-title-link" itemprop="url">格式化安卓字符串资源</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-02-15 13:18:29" itemprop="dateCreated datePublished" datetime="2017-02-15T13:18:29+08:00">2017-02-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-03-15 14:14:56" itemprop="dateModified" datetime="2020-03-15T14:14:56+08:00">2020-03-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/开发/" itemprop="url" rel="index"><span itemprop="name">开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/格式化安卓字符串资源.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/格式化安卓字符串资源.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="格式化安卓字符串资源-每种语言按照默认的行数对应起来-每个资源必须单独一行-只支持String-不支持数组"><a href="#格式化安卓字符串资源-每种语言按照默认的行数对应起来-每个资源必须单独一行-只支持String-不支持数组" class="headerlink" title="格式化安卓字符串资源 每种语言按照默认的行数对应起来  每个资源必须单独一行 只支持String 不支持数组"></a>格式化安卓字符串资源 每种语言按照默认的行数对应起来  每个资源必须单独一行 只支持String 不支持数组</h2><h3 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h3><h4 id="1-放在res同目录下"><a href="#1-放在res同目录下" class="headerlink" title="1.放在res同目录下"></a>1.放在res同目录下</h4><h4 id="2-在translate-file-name中append需要格式化的文件名"><a href="#2-在translate-file-name中append需要格式化的文件名" class="headerlink" title="2.在translate_file_name中append需要格式化的文件名"></a>2.在translate_file_name中append需要格式化的文件名</h4><h3 id="代码如下-格式及其不规范"><a href="#代码如下-格式及其不规范" class="headerlink" title="代码如下 格式及其不规范"></a>代码如下 格式及其不规范</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> fileinput</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> xml.etree.ElementTree <span class="keyword">import</span> ElementTree</span><br><span class="line"></span><br><span class="line">RES = <span class="string">"res\\"</span></span><br><span class="line">DEFAULT_LANGUAGE = <span class="string">"values"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通过xml格式读取默认的语言格式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_xml</span><span class="params">(in_path)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        tree = ElementTree()</span><br><span class="line">        tree.parse(in_path)</span><br><span class="line">        <span class="keyword">return</span> tree</span><br><span class="line">    <span class="keyword">except</span> BaseException:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取其他语言对应的字典</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_dict_from_other_language</span><span class="params">(file_path)</span>:</span></span><br><span class="line">    other_language_dict = &#123;&#125;</span><br><span class="line">    is_start_parser_string = <span class="literal">False</span></span><br><span class="line">    head_content = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fileinput.input(file_path):</span><br><span class="line">        _pattern = <span class="string">r"name=\""</span> + <span class="string">"\w*\""</span></span><br><span class="line">        pattern = re.compile(_pattern)</span><br><span class="line">        result = pattern.findall(line)</span><br><span class="line">        <span class="keyword">if</span> len(result) &gt;= <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> is_start_parser_string:</span><br><span class="line">                is_start_parser_string = <span class="literal">True</span></span><br><span class="line">            name = result[<span class="number">0</span>][<span class="number">6</span>:<span class="number">-1</span>]</span><br><span class="line">            other_language_dict[name] = line</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> is_start_parser_string:</span><br><span class="line">                head_content += line</span><br><span class="line">    fileinput.close()</span><br><span class="line">    <span class="keyword">return</span> head_content, other_language_dict</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取其他语言对应的字符串</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_string_for_other_language</span><span class="params">(other_language_dict, tree_default, head_content)</span>:</span></span><br><span class="line">    result = head_content</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> tree_default.getroot():</span><br><span class="line">        node_name = node.attrib[<span class="string">'name'</span>]</span><br><span class="line">        <span class="keyword">if</span> node_name <span class="keyword">in</span> other_language_dict:</span><br><span class="line">            result += other_language_dict[node_name]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result += (<span class="string">"    &lt;!-- "</span> + node_name + <span class="string">" not translate --&gt;\n"</span>)</span><br><span class="line">    result += <span class="string">"&lt;/resources&gt;"</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write_file</span><span class="params">(content, path)</span>:</span></span><br><span class="line">    fp = open(path, mode=<span class="string">"w"</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        fp.write(content)</span><br><span class="line">    <span class="keyword">except</span> BaseException:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        fp.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 校验语言格式是否匹配</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_other_language</span><span class="params">(default_language_path, other_language_path)</span>:</span></span><br><span class="line">    default_language_dict = &#123;&#125;</span><br><span class="line">    default_index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fileinput.input(default_language_path):</span><br><span class="line">        _pattern = <span class="string">r"name=\""</span> + <span class="string">"\w*\""</span></span><br><span class="line">        pattern = re.compile(_pattern)</span><br><span class="line">        result = pattern.findall(line)</span><br><span class="line">        <span class="keyword">if</span> len(result) &gt;= <span class="number">1</span>:</span><br><span class="line">            name = result[<span class="number">0</span>][<span class="number">6</span>:<span class="number">-2</span>]</span><br><span class="line">            default_language_dict[default_index] = name</span><br><span class="line">            default_index += <span class="number">1</span></span><br><span class="line">    fileinput.close()</span><br><span class="line"></span><br><span class="line">    other_language_dict = &#123;&#125;</span><br><span class="line">    other_index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> fileinput.input(other_language_path):</span><br><span class="line">        _pattern = <span class="string">r"name=\""</span> + <span class="string">"\w*\""</span></span><br><span class="line">        pattern = re.compile(_pattern)</span><br><span class="line">        result = pattern.findall(line)</span><br><span class="line">        <span class="keyword">if</span> len(result) &gt;= <span class="number">1</span>:</span><br><span class="line">            name = result[<span class="number">0</span>][<span class="number">6</span>:<span class="number">-1</span>]</span><br><span class="line">            other_language_dict[other_index] = name</span><br><span class="line">            other_index += <span class="number">1</span></span><br><span class="line">    fileinput.close()</span><br><span class="line"></span><br><span class="line">    default_len = len(default_language_dict)</span><br><span class="line">    other_len = len(other_language_dict)</span><br><span class="line">    <span class="keyword">if</span> default_len != other_len:</span><br><span class="line">        <span class="keyword">print</span> other_language_path + <span class="string">" error!!!"</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> range(default_len):</span><br><span class="line">        <span class="keyword">if</span> cmp(default_language_dict[index], other_language_dict[index]) != <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">print</span> default_language_dict[index], other_language_dict[</span><br><span class="line">                index], other_language_path + <span class="string">" error!!!"</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">print</span> other_language_path, <span class="string">"succeed"</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化安卓字符串资源 每种语言按照默认的行数对应起来  每个资源必须单独一行</span></span><br><span class="line"><span class="comment"># 只支持String 不支持数组</span></span><br><span class="line">translate_file_name = []</span><br><span class="line">translate_file_name.append(<span class="string">"strings.xml"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">format_android_string</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 1. 通过xml格式读取默认语言的xml文件</span></span><br><span class="line">    <span class="comment"># 2. 通过读文件方式读取其他语言的xml文件(通过正则表达式提取name属性/通过xml节点方式获取name属性) 生成name属性和该行的map数据对象</span></span><br><span class="line">    <span class="comment"># 3. 根据name属性 从map数据对象中获取该行</span></span><br><span class="line">    <span class="comment"># 4. 将读出来的该行 拼接到已经有的资源字符串后</span></span><br><span class="line">    <span class="comment"># 5. 遍历完全部 生成文件</span></span><br><span class="line">    <span class="keyword">for</span> fileName <span class="keyword">in</span> translate_file_name:</span><br><span class="line">        default_language_path = RES + DEFAULT_LANGUAGE + <span class="string">"\\"</span> + fileName</span><br><span class="line">        tree_default = read_xml(default_language_path)</span><br><span class="line">        <span class="keyword">if</span> tree_default <span class="keyword">is</span> <span class="literal">None</span>: <span class="keyword">continue</span></span><br><span class="line">        other_language_dir = os.listdir(RES)</span><br><span class="line">        <span class="keyword">for</span> otherLanguageFile <span class="keyword">in</span> other_language_dir:</span><br><span class="line">            <span class="keyword">if</span> otherLanguageFile.startswith(</span><br><span class="line">                    <span class="string">"values"</span>) <span class="keyword">and</span> <span class="keyword">not</span> otherLanguageFile == DEFAULT_LANGUAGE:</span><br><span class="line">                other_language_path = RES + otherLanguageFile + <span class="string">"\\"</span> + fileName</span><br><span class="line">                head_content, other_language_dict = get_dict_from_other_language(</span><br><span class="line">                    other_language_path)</span><br><span class="line">                string_result = get_string_for_other_language(other_language_dict,</span><br><span class="line">                                                              tree_default, head_content)</span><br><span class="line">                write_file(string_result, other_language_path)</span><br><span class="line">                check_other_language(default_language_path, other_language_path)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    format_android_string()</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://ericwyuan.com/Looper-Handler-MessageQueue源码解析.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1441,7 +2050,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1489,7 +2098,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
